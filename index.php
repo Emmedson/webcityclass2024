@@ -1,4 +1,12 @@
 <?php
+if(isset($_GET['submit'])){
+    echo $_GET['email'];
+    echo "YES";
+}
+?>
+
+
+<?php
 
 $name = "";
 $studentName = "Blessing";
@@ -83,9 +91,52 @@ $radius -= 40;
 
 $radius = $radius - 40;
 
-echo $radius;
+echo $radius . "<br>";
 
 // echo $area = pi() * $radius ** 2;
+
+
+// PHP ARRAYS//
+
+$Products = [ 'Aple', 20 , 'red', 'Nigeria' ];
+
+// print_r($Product[2]);
+
+foreach($Products as $product) {
+    echo $product . "<br>";
+}
+
+for ($i=0; $i < count($Products); $i++){
+    echo $Products[$i] . '<br>';
+}
+
+
+
+
+$Product = [ 'Title' => 'Apple', 'Amount' => 20 , 'color' => 'red', 'country' => 'Nigeria' ];
+
+// echo $Product['country'];
+
+
+
+$blogs = [
+    [ 'Coding without hustles', 'Jake', 56],
+    [ 'My FE journey', 'Johnson', 90 ],
+    [ 'Need for speed', 'David', '20 sept. 2022' ],
+    [ 'Backed Ninja', 'Goodness', 65 ],
+    [ 'Fulstack Road map', 'Blessing', 40 ],
+];
+
+
+// $blogs = [ 'Coding without hustles', 'Jake', 56];
+    
+// print_r ($blogs[2][0]);
+
+// print_r ($blogs);
+
+
+
+
 
 
 
@@ -97,8 +148,11 @@ echo $radius;
     </head>
 
     <body>
-        <div>
+<form action="index.php" method="GET">
 
-        </div>
+<input type="text" name="email">
+<input type="text" name = "title">
+<input type="submit" value="submit" name = "submit">
+</form>
     </body>
 </html>
