@@ -1,7 +1,12 @@
 
 <?php
 
+$dbconnect = mysqli_connect("localhost", "goodness", "Goodness@2022", "ladycuteg");
 
+if (mysqli_connect_errno()) {
+    echo "Failed to connect to MySQL: " . mysqli_connect_error();
+    exit();
+   }
 
 
 
@@ -136,24 +141,38 @@ if($products[0]['price'] == 200 || $products[0]['title'] === 'Laptop' && 50 == 4
 
 
 <?php
-if(isset($_GET['submit'])){
-    echo htmlspecialchars($_GET['title']);
+if(isset($_POST['submit'])){
+
+    $title = ($_POST['title']);
+    $amount = ($_POST['amount']);
+    
+// Wrte your SQL Query
+    $sql = "INSERT INTO products(title, amount) VALUES ('$title', '$amount')";
+
+        if (mysqli_query($dbconnect, $sql)){
+            echo "Save successfully";
+        }
+        else{
+            echo "query error:". mysqli_error($dbconnect);
+        }
 }
 ?>
 
 <?php
-// $con = mysqli_connect("localhost","my_user","my_password","my_db");
+$xyz = "SELECT * FROM products";
 
-$dbconnect = mysqli_connect("localhost", "goodness", "Goodness@2022", "ladycuteg");
+$result = mysqli_query($dbconnect, $xyz);
 
-// Check connection
-if (mysqli_connect_errno()) {
-  echo "Failed to connect to MySQL: " . mysqli_connect_error();
-  exit();
+$sproducts = mysqli_fetch_all($result, MYSQLI_ASSOC);
+
+// print_r($sproducts);
+ foreach($sproducts as $product){
+    echo $product['title']. ' - ' . $product['amount'] . '<br>';
  }
+
 ?>
 
-<form action="class5.php" method="GET" >
+<form action="class5.php" method="POST" >
     <input type="text" name="title" placeholder="Add product title">
     <input type="text" name="amount" placeholder="Add Product Amount">
     <input type="submit" name="submit" value="Submit">
