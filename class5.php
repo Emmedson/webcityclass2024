@@ -1,85 +1,6 @@
-
 <?php
-
-$dbconnect = mysqli_connect("localhost", "goodness", "Goodness@2022", "ladycuteg");
-
-if (mysqli_connect_errno()) {
-    echo "Failed to connect to MySQL: " . mysqli_connect_error();
-    exit();
-   }
-
-
-
-//echo TRUE; //"1"
-
-//echo FALSE; //""
-// echo 50 != 40;
-
-// if ($Product['price'] > 100 && $Product['title'] === 'Bag') {
-
-        
-
-// }
-
-// if ($Product['price'] > 100 || $Product['title'] === 'Bag') {
-
-        
-
-// }
-
-
-
-
-
-// $Snames = [ 'Goodness', 'David', 'Johnson'];
-
-// $y = count($Snames);
-// echo $y;
-
-
-
-// /print_r($products);
-
-
-// for ($i=0; $i < $y; $i++){
-
-//     echo $Snames[$i]. '<br>';
-// }
-
-//  foreach ($Products as $product ){     
-//     <h1> <?php echo $product['price']; 
-
-// >?php } 
-
-
-
-// echo '<br>';
-
-// End foreach
-
-
-
-// $i = 0;
-
-// while ($i > 5){
-//     echo "Yes";
-//     echo '<br>';
-//     $i++;
-// }
-
-// $x = 0;
-// do{
-// echo "YES";
-// $x++;
-// }
-// while ($x > 5);
-
-// ?>
-
-
-
-
-
+include('connect.php');
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -91,92 +12,77 @@ if (mysqli_connect_errno()) {
 <body>
 
 <?php
-$products = [
-    ['title' => 'Laptop', 'price' => 2500],
-    ['title' => 'Bag', 'price' => 700],
-    ['title' => 'Phone', 'price' => 1500]
-];
-
-// $students = ['Goodness', 'Sam', 'Johnson', 'David'];
-
-// print_r($products);
-
-if($products[0]['price'] == 200 || $products[0]['title'] === 'Laptop' && 50 == 40) {
-    echo $products[0]['title']. '-'. $products[0]['price'];
-    }
-
-    else{
-        echo "None of the condition are true";
-    } 
-
-    // elseif($products[0]['title'] === 'Laptop'){
-    // echo 'The product title is '.$products[0]['title'];  
-    // }
-
-   
-
-
-
-?>
-
-<h1> Products</h1>
-
-<ul>
-
-    <?php foreach ($products as $product){ ?>
-    <h3 class="prodcut">
-        
-        <?php 
-        if($product['price'] > 1000) {
-        echo $product['title']. '-'. $product['price'];
-        }
-        else{
-            echo $product['title']. " is less than NGN1000";
-        } 
-        
-        ?> 
-    </h3>
-    <?php } ?>
-</ul>
-
-
-<?php
 if(isset($_POST['submit'])){
-
     $title = ($_POST['title']);
     $amount = ($_POST['amount']);
     
-// Wrte your SQL Query
-    $sql = "INSERT INTO products(title, amount) VALUES ('$title', '$amount')";
+    $file = $_FILES ['pimage'];
+    $fileName = $_FILES['pimage']['name'];
+    $fileTempName = $_FILES ['pimage']['tmp_name'];
+    $fileSize = $_FILES ['pimage']['size'];
+    $fileType = $_FILES ['pimage']['type'];
+    $fileError = $_FILES ['pimage']['error'];
 
-        if (mysqli_query($dbconnect, $sql)){
+    $fileExt = explode('.', $fileName);
+    $ext = strtolower(end($fileExt));
+    $allow = array('png', 'jpg', 'jpeg');
+    
+    if(in_array($ext, $allow)){
+        echo $ext. 'Valid Ext'. '<br>';
+        $fileName = $title.$fileName;
+        $filedestination = 'productsimages/'. $fileName;
+        move_uploaded_file($fileTempName, $filedestination);
+    }else{
+        echo "Invalid extention";
+    }
+  //  print_r($file);
+
+// Wrte your SQL Query
+    $sql = "INSERT INTO products(title, amount, imgname) VALUES ('$title', '$amount', '$fileName')";
+
+        if (mysqli_query($connect, $sql)){
             echo "Save successfully";
-        }
-        else{
-            echo "query error:". mysqli_error($dbconnect);
+        }else{
+            echo "query error:". mysqli_error($connect);
         }
 }
 ?>
 
+<h1> Products</h1>
+
 <?php
+// SELECT QUERY HERE
 $xyz = "SELECT * FROM products";
-
-$result = mysqli_query($dbconnect, $xyz);
-
+$result = mysqli_query($connect, $xyz);
 $sproducts = mysqli_fetch_all($result, MYSQLI_ASSOC);
-
-// print_r($sproducts);
- foreach($sproducts as $product){
-    echo $product['title']. ' - ' . $product['amount'] . '<br>';
- }
-
 ?>
 
-<form action="class5.php" method="POST" >
-    <input type="text" name="title" placeholder="Add product title">
-    <input type="text" name="amount" placeholder="Add Product Amount">
-    <input type="submit" name="submit" value="Submit">
+<?php
+ foreach($sproducts as $product){ ?>
+ <?php
+    echo $product['title']. ' - ' . $product['amount'];?>
+    <!-- <a href="product.php?id=<?php //echo $product['id'] ?>">View Product</a> -->
+
+    <a href="product.php?id=<?php echo $product['id'] ?>"> View Product</a>
+    <?php echo '<br>'?> 
+ <?php } 
+ // SELECT AND LISTING QUERY STOPS HERE
+ ?>
+
+<Hr></Hr>
+
+<h1>Add New Product</h1>
+
+<form action="class5.php" method="POST" enctype="multipart/form-data" >
+<input type="text" name="title" placeholder="Add product title">
+<input type="text" name="amount" placeholder="Add Product Amount">
+<label>Upload product</label>
+<input type="file" name="pimage" id="pimage">
+<input type="submit" name="submit" value="Submit">
 </form>
+
+
+
     
 </body>
 </html>
