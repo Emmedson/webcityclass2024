@@ -20,12 +20,15 @@ $xyz = "SELECT * FROM products WHERE id = '$pid'";
 
 $result = mysqli_query($connect, $xyz);
 
-$sproducts = mysqli_fetch_assoc($result);
+$sproduct = mysqli_fetch_assoc($result);
 ?>
 
 <div style = "padding: 10%; font-size:14px">
  <?php
-    echo $sproducts['title']. ' - ' . $sproducts['amount'];
+     $filepath2 = $sproduct['imgname'];
+    echo '<img src="productsimages/'.$filepath2.'" width="300px">';
+    echo '<br>';
+    echo $sproduct['title']. ' - ' . $sproduct['amount'];
 ?>
 
 <form action="product.php" method = "POST">

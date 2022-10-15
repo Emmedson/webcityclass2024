@@ -22,6 +22,7 @@ if(isset($_POST['submit'])){
     $fileSize = $_FILES ['pimage']['size'];
     $fileType = $_FILES ['pimage']['type'];
     $fileError = $_FILES ['pimage']['error'];
+    $fileid = uniqid();
 
     $fileExt = explode('.', $fileName);
     $ext = strtolower(end($fileExt));
@@ -29,7 +30,7 @@ if(isset($_POST['submit'])){
     
     if(in_array($ext, $allow)){
         echo $ext. 'Valid Ext'. '<br>';
-        $fileName = $title.$fileName;
+        $fileName = $fileid.$fileName;
         $filedestination = 'productsimages/'. $fileName;
         move_uploaded_file($fileTempName, $filedestination);
     }else{
@@ -60,6 +61,9 @@ $sproducts = mysqli_fetch_all($result, MYSQLI_ASSOC);
 <?php
  foreach($sproducts as $product){ ?>
  <?php
+    $filepath2 = $product['imgname'];
+   
+    echo '<img src="productsimages/'.$filepath2.'" width="30px">';
     echo $product['title']. ' - ' . $product['amount'];?>
     <!-- <a href="product.php?id=<?php //echo $product['id'] ?>">View Product</a> -->
 
