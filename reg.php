@@ -22,26 +22,38 @@ include('connect.php');
     <input type="password" name="password" ><br><br>
     <label>Confirm Password</label>
     <input type="password" name="confirm_password" ><br><br>
-    <input type="submit" value="submit" name="register">
+    <input type="submit" value="Register" name="register">
 
     </form>
 <?php
-if(isset($_POST['register'])){
-    if(empty($_POST['username']) || empty($_POST['email']) ){
-        echo "Username and Email are required";
-    }
+// echo $encpassword;
 
-    if(empty($_POST['password'])){
-        echo "Password Is required";
+if(isset($_POST['register'])){
+    $username = ($_POST['username']);
+    $email = ($_POST['email']);
+    $password = ($_POST['password']);
+    $encpassword = MD5($password);
+
+    if(empty($_POST['username']) || empty($_POST['email']) || empty($_POST['password']) ){
+        echo "Username, Email and Password are required";
+    
     }
 
     if(($_POST['password']) !== ($_POST['confirm_password']) ){
         echo "Password not match";
+
     }
    
-} else{
-    echo "saved succefully!";
+    else{
+        
+    $query = "INSERT INTO users (username, email, upassword) VALUES('$username', '$email', '$encpassword')";
+    mysqli_query($connect, $query);
+        session_start();
+        $_SESSION['username'] = $username;
+        header('location: login.php');
+    }
 }
+  
 ?>
 
 </body>
