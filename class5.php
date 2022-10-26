@@ -78,6 +78,7 @@ $sproducts = mysqli_fetch_all($result, MYSQLI_ASSOC);
     if(isset($_POST['viewProduct'])){
         session_start();
         $_SESSION['id'] = $_POST['pid'];
+        $_SESSION['pid2'] = $product['id'];
         header("location:product.php");
     }
     ?>
