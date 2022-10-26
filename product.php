@@ -1,9 +1,10 @@
-<h1>Single Product Page</h1>
-
-
 <?php
 include('connect.php');
+session_start();
+$pid = $_SESSION['id'];
+
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -15,7 +16,6 @@ include('connect.php');
 </head>
 <body>
 <?php
-$pid = ($_GET['id']);
 $xyz = "SELECT * FROM products WHERE id = '$pid'";
 
 $result = mysqli_query($connect, $xyz);
@@ -31,23 +31,20 @@ $sproduct = mysqli_fetch_assoc($result);
     echo $sproduct['title']. ' - ' . $sproduct['amount'];
 ?>
 
-<form action="product.php" method = "POST">
-    <input type="hidden" value="<?php echo $pid ?>" name="productid">
-    <input type="submit" value="delete" name="delete">
+<form action="product.php" method="POST" >
+        <input type="submit" value="delete" name="delete">
 </form>
-
-</div>
 <?php
 if(isset($_POST['delete'])){
-    $pid = $_POST['productid'];
+    
     $sqldelete = "DELETE FROM products WHERE id=$pid";
-    if(mysqli_query($connect, $sqldelete)){
+    mysqli_query ($connect, $sqldelete);
     header("location: class5.php");
-    }else{
-        echo "Unable to delete this record now, please try agian";
-    }
+
+
 }
 ?>
+
     
 
 </body>

@@ -57,14 +57,34 @@ if(isset($_POST['submit'])){
 }
 ?>
 
-<h1> Products</h1>
-
 <?php
-// SELECT QUERY HERE
+// SELECT QUERY HE
 $xyz = "SELECT * FROM products";
 $result = mysqli_query($connect, $xyz);
 $sproducts = mysqli_fetch_all($result, MYSQLI_ASSOC);
 ?>
+<h1> Welcome to Oshodi Market</h1>
+<div class="products">
+
+    <div class="product1">   
+    <img src="productimages/children.jpg" alt="">
+    <h3>Rice</h3>
+    <h4>Price N38,000</h4>
+    </div>
+
+    <div class="product1">   
+    <img src="productimages/children.jpg" alt="">
+    <h3>Beans</h3>
+    <h4>Price N38,000</h4>
+    </div>
+
+    <div class="product1">   
+    <img src="productimages/children.jpg" alt="">
+    <h3>Garri</h3>
+    <h4>Price N38,000</h4>
+    </div>
+
+</div>
 
 <?php
  foreach($sproducts as $product){ ?>

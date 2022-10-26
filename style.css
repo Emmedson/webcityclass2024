@@ -1,0 +1,16 @@
+body{
+    padding:10% 20%;
+}
+
+.input-group{
+    padding-top: 10px;
+}
+
+input{
+    float: right;
+    margin-left: 2px;
+}
+
+.regform{
+    width: fit-content;
+}

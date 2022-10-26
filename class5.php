@@ -8,6 +8,8 @@ include('connect.php');
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    
+ 
 </head>
 <body>
 
@@ -46,6 +48,7 @@ if(isset($_POST['submit'])){
         }else{
             echo "query error:". mysqli_error($connect);
         }
+    
 }
 ?>
 
@@ -62,16 +65,42 @@ $sproducts = mysqli_fetch_all($result, MYSQLI_ASSOC);
  foreach($sproducts as $product){ ?>
  <?php
     $filepath2 = $product['imgname'];
-   
-    echo '<img src="productsimages/'.$filepath2.'" width="30px">';
-    echo $product['title']. ' - ' . $product['amount'];?>
-    <!-- <a href="product.php?id=<?php //echo $product['id'] ?>">View Product</a> -->
+    echo '<img src="productsimages/'.$filepath2.'" width="50px">';
+    echo $product['title']. ' - ' . $product['amount']; ?>
+       
+    <a href="product.php?id=<?php echo $product['id']?>">View Product</a>
 
-    <a href="product.php?id=<?php echo $product['id'] ?>"> View Product</a>
+    <form action="class5.php" method="POST">
+        <input type="hidden" name ="pid" value="<?php echo $product['id'] ?>" >
+        <input type="submit" value="view Product" name="viewProduct">
+    </form>
+    <?php
+    if(isset($_POST['viewProduct'])){
+        session_start();
+        $_SESSION['id'] = $_POST['pid'];
+        header("location:product.php");
+    }
+    ?>
+    <br>
+
+    <!-- <a href="edit.php?id=<?php //echo $product['id'] ?>"> Edit </a> -->
+    <form action="class5.php" method="POST">
+        <input type="hidden" name ="title" value="<?php echo $product['id'] ?>" >
+        <input type="submit" value="Edite" name="edite">
+    </form>
+<?php 
+    if(isset($_POST['edite'])){
+        session_start();
+        $_SESSION['id'] = $_POST['title'];
+        header("location: edit.php");
+
+       
+    }
+?>
     <?php echo '<br>'?> 
- <?php } 
- // SELECT AND LISTING QUERY STOPS HERE
- ?>
+ <?php } ?>
+
+ <!-- Forech Ends Here -->
 
 <Hr></Hr>
 
