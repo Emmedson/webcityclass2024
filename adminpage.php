@@ -1,12 +1,20 @@
 <?php 
+if (!isset($_SESSION['username'])) {
+    $_SESSION['msg'] = "You must log in first to access this page";
+    echo ($_SESSION['msg']);
+    echo '<a href="login.php">Login</a>'; 
+    exit();
+    //header('location: login2.php');
+}
+
 session_start();
 $username = $_SESSION['username'];
 $welcomemsg = $_SESSION['success'];
 
-if (isset($_GET['logout'])) {
+if (isset($_POST['logout'])) {
     session_destroy();
     unset($_SESSION['username']);
-    header("location: login.php");
+    header("location: login2.php");
 }
 
 ?>
@@ -24,6 +32,9 @@ if (isset($_GET['logout'])) {
 <body>
     <h1>Hello <?php echo $username?> ! </h1>
     <h3><?php echo $welcomemsg ?></h3>
+    <form action="adminpage.php" method="POST">
+        <input type="submit" value="Logout" name="logout">
+    </form>
 
 
 </body>

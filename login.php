@@ -26,15 +26,16 @@ include('connect.php');
 if (isset($_POST['login'])) {
     $username = mysqli_real_escape_string($connect,$_POST['username']);
     $password = mysqli_real_escape_string($connect, $_POST['password']);
-  
+
     if (empty($username)) {
         echo "Username is required";
+        exit();
     }
     if (empty($password)) {
         echo "Password is required";
+        exit();
     }
-  
-    // if (count($errors) == 0) {
+
         $password = md5($password);
         $query = "SELECT * FROM users WHERE username='$username' AND upassword='$password'";
         $results = mysqli_query($connect, $query);
@@ -46,6 +47,6 @@ if (isset($_POST['login'])) {
             echo "Wrong username/password combination";
         }
     }
-  //}
+
   
   ?>
