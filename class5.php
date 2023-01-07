@@ -52,7 +52,7 @@ if(isset($_POST['submit'])){
 }
 ?>
 
-<h1> Products</h1>
+<h1> My Products Page</h1>
 
 <?php
 // SELECT QUERY HERE
@@ -68,7 +68,7 @@ $sproducts = mysqli_fetch_all($result, MYSQLI_ASSOC);
     echo '<img src="productsimages/'.$filepath2.'" width="50px">';
     echo $product['title']. ' - ' . $product['amount']; ?>
        
-    <a href="product.php?id=<?php echo $product['id']?>">View Product</a>
+    <!-- <a href="product.php?id=<?php echo $product['id']?>">View Product</a> -->
 
     <form action="class5.php" method="POST">
         <input type="hidden" name ="pid" value="<?php echo $product['id'] ?>" >

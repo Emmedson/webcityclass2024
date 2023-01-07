@@ -1,7 +1,6 @@
 <?php 
 if (!isset($_SESSION['username'])) {
-    $_SESSION['msg'] = "You must log in first to access this page";
-    echo ($_SESSION['msg']);
+    echo "You must log in first to access this page";
     echo '<a href="login.php">Login</a>'; 
     exit();
     //header('location: login2.php');

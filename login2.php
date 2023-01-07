@@ -29,6 +29,7 @@ if(isset($_POST['login'])){
 
     if(empty($username) || empty($password)){
         echo "Username and Password is required";
+        exit();
     } else{
         $encpassword = md5($password);
         $query = " SELECT * FROM users WHERE username = '$username' AND upassword = '$encpassword'";
