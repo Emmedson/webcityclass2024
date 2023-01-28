@@ -66,7 +66,9 @@ $sproducts = mysqli_fetch_all($result, MYSQLI_ASSOC);
  <?php
     $filepath2 = $product['imgname'];
     echo '<img src="productsimages/'.$filepath2.'" width="50px">';
-    echo $product['title']. ' - ' . $product['amount']; ?>
+    
+    echo $product['title']. ' - ' . $product['amount'];
+?>
        
     <!-- <a href="product.php?id=<?php echo $product['id']?>">View Product</a> -->
 
@@ -89,15 +91,13 @@ $sproducts = mysqli_fetch_all($result, MYSQLI_ASSOC);
         <input type="hidden" name ="title" value="<?php echo $product['id'] ?>" >
         <input type="submit" value="Edite" name="edite">
     </form>
-<?php 
+    <?php 
     if(isset($_POST['edite'])){
         session_start();
         $_SESSION['id'] = $_POST['title'];
-        header("location: edit.php");
+        header("location: edit.php");}
+    ?>
 
-       
-    }
-?>
     <?php echo '<br>'?> 
  <?php } ?>
 
