@@ -1,6 +1,7 @@
 <?php
 include('connect.php');
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -64,13 +65,13 @@ $sproducts = mysqli_fetch_all($result, MYSQLI_ASSOC);
 <?php
  foreach($sproducts as $product){ ?>
  <?php
-    $filepath2 = $product['imgname'];
-    echo '<img src="productsimages/'.$filepath2.'" width="50px">';
+    $filepath2 = $product['image'];
+    echo '<img src="isreal/'.$filepath2.'" width="50px">';
     
     echo $product['title']. ' - ' . $product['amount'];
-?>
+    ?>
        
-    <!-- <a href="product.php?id=<?php echo $product['id']?>">View Product</a> -->
+     <!-- <a href="product.php?id=<?php //echo $product['id']?>">View Product</a>  -->
 
     <form action="class5.php" method="POST">
         <input type="hidden" name ="pid" value="<?php echo $product['id'] ?>" >
@@ -88,7 +89,7 @@ $sproducts = mysqli_fetch_all($result, MYSQLI_ASSOC);
 
     <!-- <a href="edit.php?id=<?php //echo $product['id'] ?>"> Edit </a> -->
     <form action="class5.php" method="POST">
-        <input type="hidden" name ="title" value="<?php echo $product['id'] ?>" >
+        <input type="text" name ="title" value="<?php echo $product['id'] ?>" >
         <input type="submit" value="Edite" name="edite">
     </form>
     <?php 

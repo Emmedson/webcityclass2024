@@ -25,8 +25,8 @@ $sproduct = mysqli_fetch_assoc($result);
 
 <div style = "padding: 10%; font-size:14px">
  <?php
-     $filepath2 = $sproduct['imgname'];
-    echo '<img src="productsimages/'.$filepath2.'" width="300px">';
+     $filepath2 = $sproduct['image'];
+    echo '<img src="isreal/'.$filepath2.'" width="300px">';
     echo '<br>';
     echo $sproduct['title']. ' - ' . $sproduct['amount'];
 ?>
@@ -39,7 +39,7 @@ if(isset($_POST['delete'])){
     
     $sqldelete = "DELETE FROM products WHERE id=$pid";
     mysqli_query ($connect, $sqldelete);
-    header("location: class5.php");
+    header("location: create.php");
 
 
 }

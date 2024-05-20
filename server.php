@@ -8,6 +8,7 @@ include('connect.php')
 // User Registration 
 if(isset($_POST['register'])){
     $username = ($_POST['username']);
+    $x = 3;
     $email = ($_POST['email']);
     $password = ($_POST['password']);
     $encpassword = MD5($password);
@@ -54,6 +55,8 @@ if(isset($_POST['register'])){
         session_start();
         $_SESSION['username'] = $username;
         header('location: login2.php');
+
+        
 
 
 

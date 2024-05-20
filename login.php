@@ -30,14 +30,13 @@ if (isset($_POST['login'])) {
     if (empty($username)) {
         echo "Username is required";
         exit();
-    }
-    if (empty($password)) {
+    }    if (empty($password)) {
         echo "Password is required";
         exit();
     }
 
-        $password = md5($password);
-        $query = "SELECT * FROM users WHERE username='$username' AND upassword='$password'";
+        $enc_password = md5($password);
+        $query = "SELECT * FROM users WHERE username='$username' AND upassword='$enc_password'";
         $results = mysqli_query($connect, $query);
         if (mysqli_num_rows($results) == 1) {
           $_SESSION['username'] = $username;

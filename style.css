@@ -14,3 +14,10 @@ input{
 .regform{
     width: fit-content;
 }
+
+.user{
+    background-color: azure;
+    width: 300px;
+    height: 400px;
+    padding: 50px;
+}

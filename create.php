@@ -3,6 +3,15 @@ include ('connect.php');
 ?>
 
 <?php
+   if(isset($_POST['viewProduct'])){
+       session_start();
+       $_SESSION['id'] = $_POST['pid'];
+       
+       header("location:product.php");
+   }
+   ?>
+
+<?php
 // Select Product From DB
 $selectquery = "SELECT * FROM products";
 $Sresult = mysqli_query($connect, $selectquery);
@@ -36,14 +45,7 @@ foreach($products as $product){ ?>
 <?php echo '<br>'?> 
 <?php } ?>
 
-   <?php
-   if(isset($_POST['viewProduct'])){
-       session_start();
-       $_SESSION['id'] = $_POST['pid'];
-    //    $_SESSION['pid2'] = $product['id'];
-       header("location:product.php");
-   }
-   ?> -->
+    -->
    <br>
 
    <!-- <a href="edit.php?id=<?php //echo $product['id'] ?>"> Edit </a> -->
