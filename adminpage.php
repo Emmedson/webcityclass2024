@@ -1,19 +1,21 @@
 <?php 
+
+
+session_start();
+
 if (!isset($_SESSION['username'])) {
     echo "You must log in first to access this page";
     echo '<a href="login.php">Login</a>'; 
     exit();
-    //header('location: login2.php');
+    //header('location: login2.php'); == !=
 }
-
-session_start();
 $username = $_SESSION['username'];
 $welcomemsg = $_SESSION['success'];
 
 if (isset($_POST['logout'])) {
     session_destroy();
     unset($_SESSION['username']);
-    header("location: login2.php");
+    header("location: login.php");
 }
 
 ?>

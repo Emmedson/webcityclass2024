@@ -1,5 +1,5 @@
 <?php
-include('connect.php');
+// include('connect.php');
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -24,8 +24,10 @@ include('connect.php');
 <?php
 // LOGIN USER
 if (isset($_POST['login'])) {
-    $username = mysqli_real_escape_string($connect,$_POST['username']);
-    $password = mysqli_real_escape_string($connect, $_POST['password']);
+    // $username = mysqli_real_escape_string($connect,$_POST['username']);
+    // $password = mysqli_real_escape_string($connect, $_POST['password']);
+    $username = $_POST['username'];
+    $password = $_POST['password'];
 
     if (empty($username)) {
         echo "Username is required";
@@ -36,12 +38,17 @@ if (isset($_POST['login'])) {
     }
 
         $enc_password = md5($password);
-        $query = "SELECT * FROM users WHERE username='$username' AND upassword='$enc_password'";
-        $results = mysqli_query($connect, $query);
-        if (mysqli_num_rows($results) == 1) {
+        
+        // $query = "SELECT * FROM users WHERE username='$username' AND upassword='$enc_password'";
+        // $results = mysqli_query($connect, $query);
+        // if (mysqli_num_rows($results) == 1) {
+        $dbusername = 'Emmanuel';
+        $dbpassword = '123';
+        if ($dbusername == $username AND $dbpassword = $password){
+        session_start();
           $_SESSION['username'] = $username;
           $_SESSION['success'] = "You are now logged in";
-          header('location: adminpage.php');
+          header('location: /davidsclass/adminpage.php');
         }else {
             echo "Wrong username/password combination";
         }
